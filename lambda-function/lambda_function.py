@@ -8,7 +8,7 @@ def handler(event, context):
 	print(event)
 
 	try:
-		cursor.execute("INSERT INTO sensor (time, value) VALUES (NOW(), {});".format(event["value"]))
+		cursor.execute("INSERT INTO sensor (time, value) VALUES (NOW(), %s);", [event["value"]])
 		conn.commit()
 	except (Exception, psycopg2.Error) as error:
 		print(error)
